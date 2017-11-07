@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import List from './../components/list';
-import { ProgressBar } from 'react-materialize';
-import { Link} from 'react-router-dom'
+import {ProgressBar} from 'react-materialize';
+import {Link} from 'react-router-dom'
+
 class HomePage extends Component {
 
   constructor(props) {
@@ -9,6 +10,7 @@ class HomePage extends Component {
 
     this.state = {
       data: null,
+      error: null,
     }
   }
 
@@ -16,10 +18,23 @@ class HomePage extends Component {
 
     // Get data from API
     fetch('http://localhost:1337')
-      // parse response
-      .then((res) => res.json())
+    // parse response
+      .then((res) => {
+        if (res.status !== 200) {
+          console.log(res)
+          this.setState({
+            error: {
+              code: res.status,
+              message: res.statusText,
+            },
+          });
+        } else {
+          return res.json();
+        }
+      })
       // use parsed response
       .then((json) => {
+        console.log(json);
         this.setState({
           data: json,
         });
@@ -28,22 +43,27 @@ class HomePage extends Component {
 
   render() {
 
-    const { data } = this.state;
+    const {data} = this.state;
+    const {error} = this.state;
+    console.log(this.state);
 
     return (
       <div>
 
         <h2> HomePage </h2>
 
-
-
-        {!data ? (
-          <ProgressBar />
-        ) : (
+        {(!data && !error) ?
+          (
+            <ProgressBar/>
+          )
+          :
+          !error? (
           <div>
-            <List data={data} />
+          <List data={data} />
           </div>
-        )}
+          ) :
+        error.code +' '+ error.message
+        }
       </div>
     );
   }
