@@ -4,13 +4,13 @@ import { Card } from 'react-materialize';
 
 import { Link } from 'react-router-dom';
 
-class ListItem extends Component {
+class Search extends Component {
 
   static propTypes = {
     item: PropTypes.shape({
       date: PropTypes.string.isRequired,
     }).isRequired,
-  }
+  };
 
   render() {
     const { item } = this.props;

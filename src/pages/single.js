@@ -11,6 +11,10 @@ class SinglePage extends Component {
   render() {
     return (
       <div>
+        <Link to={'/'}>
+
+          HOME
+        </Link>
         PAGE SINGLE
       </div>
     );
