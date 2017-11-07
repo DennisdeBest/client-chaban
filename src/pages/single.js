@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import { Button } from 'react-materialize';
 import { Route, Link } from 'react-router-dom';
 
 const Test = () => (
@@ -11,7 +11,7 @@ class SinglePage extends Component {
   render() {
     return (
       <div>
-        <Link to={'/'}>
+        <Link to={'/'} className='waves-light btn'>
 
           HOME
         </Link>
