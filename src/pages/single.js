@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Button } from 'react-materialize';
 import { Route, Link } from 'react-router-dom';
-
-const Test = () => (
-  <div> RENDER PAGE 1</div>
-)
 
 class SinglePage extends Component {
 
   render() {
+    console.log(this.props);
+
+    const { item }  = this.props.location.state;
     return (
       <div>
         <Link to={'/'} className='waves-light btn'>
@@ -16,6 +14,8 @@ class SinglePage extends Component {
           HOME
         </Link>
         PAGE SINGLE
+        {this.props.match.params.id}
+        {item.reason}
       </div>
     );
   }

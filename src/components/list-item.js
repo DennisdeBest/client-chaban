@@ -22,7 +22,10 @@ class ListItem extends Component {
         <p>{item.reason}</p>
 
         <Link
-          to={`/${item.id}`}
+          to={{
+            pathname: `/${item.id}`,
+            state: {item:item}
+          }}
         >
           Voir plus de détails
         </Link>
