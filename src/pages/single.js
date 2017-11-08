@@ -13,7 +13,7 @@ class SinglePage extends Component {
 
           HOME
         </Link>
-        PAGE SINGLE
+        <br/>
         {this.props.match.params.id}
         {item.reason}
       </div>

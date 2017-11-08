@@ -1,35 +1,20 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Card } from 'react-materialize';
-
-import { Link } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Input} from 'react-materialize';
 
 class Search extends Component {
 
-  static propTypes = {
-    item: PropTypes.shape({
-      date: PropTypes.string.isRequired,
-    }).isRequired,
+  handleChange = (e) => {
+    console.log(e);
+    let newValue = e.target.value;
+    this.props.onInputChange(e);
   };
 
   render() {
-    const { item } = this.props;
-
     return (
-      <Card title={item.date} >
-
-
-        <p>{item.reason}</p>
-
-        <Link
-          to={`/${item.id}`}
-        >
-          Voir plus de détails
-        </Link>
-      </Card>
+      <Input name='on' type='date' onChange={this.handleChange}/>
     );
   }
 
 }
 
-export default ListItem;
+export default Search;

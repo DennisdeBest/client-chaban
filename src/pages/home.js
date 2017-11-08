@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import List from './../components/list';
 import {ProgressBar} from 'react-materialize';
 import {Link} from 'react-router-dom'
+import Search from "../components/search";
 
 class HomePage extends Component {
 
@@ -21,7 +22,6 @@ class HomePage extends Component {
     // parse response
       .then((res) => {
         if (res.status !== 200) {
-          console.log(res)
           this.setState({
             error: {
               code: res.status,
@@ -34,18 +34,19 @@ class HomePage extends Component {
       })
       // use parsed response
       .then((json) => {
-        console.log(json);
         this.setState({
           data: json,
         });
       });
   }
+  handleInputChange = (e) => {
+    //TODO handle search date
+  };
 
   render() {
 
     const {data} = this.state;
     const {error} = this.state;
-    console.log(this.state);
 
     return (
       <div>
@@ -59,6 +60,7 @@ class HomePage extends Component {
           :
           !error? (
           <div>
+            A partir du : <Search  onInputChange={this.handleInputChange}/>
           <List data={data} />
           </div>
           ) :
