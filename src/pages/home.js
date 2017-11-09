@@ -49,10 +49,18 @@ class HomePage extends Component {
           }
         });
         json = tempJson;
+        console.log(json);
       }
+      if(json.length === 0){
+        this.setState({
+          error: {code: 404, message:'No data'}
+        })
+      }else {
         this.setState({
           data: json,
         });
+      }
+
       });
   };
 

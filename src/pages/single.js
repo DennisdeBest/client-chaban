@@ -4,8 +4,6 @@ import { Route, Link } from 'react-router-dom';
 class SinglePage extends Component {
 
   render() {
-    console.log(this.props);
-
     const { item }  = this.props.location.state;
     return (
       <div>
