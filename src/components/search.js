@@ -3,10 +3,8 @@ import {Input} from 'react-materialize';
 
 class Search extends Component {
 
-  handleChange = (e) => {
-    console.log(e);
-    let newValue = e.target.value;
-    this.props.onInputChange(e);
+  handleChange = (e, value) => {
+    this.props.onInputChange(e, value);
   };
 
   render() {

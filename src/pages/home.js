@@ -3,6 +3,7 @@ import List from './../components/list';
 import {ProgressBar} from 'react-materialize';
 import {Link} from 'react-router-dom'
 import Search from "../components/search";
+import moment from 'moment'
 
 class HomePage extends Component {
 
@@ -16,8 +17,13 @@ class HomePage extends Component {
   }
 
   componentDidMount() {
+    return this.callAPI(null);
+  }
 
-    // Get data from API
+  callAPI = (date) => {
+    this.setState({
+      data: null,
+    });
     fetch('http://localhost:1337')
     // parse response
       .then((res) => {
@@ -34,13 +40,24 @@ class HomePage extends Component {
       })
       // use parsed response
       .then((json) => {
+
+      if(date){
+        var tempJson = [];
+        json.map((item) => {
+          if(moment(item.date, 'DD/MM/YY') >= date){
+            tempJson.push(item);
+          }
+        });
+        json = tempJson;
+      }
         this.setState({
           data: json,
         });
       });
-  }
-  handleInputChange = (e) => {
-    //TODO handle search date
+  };
+
+  handleInputChange = (e, value) => {
+    this.callAPI(moment(value));
   };
 
   render() {
@@ -58,13 +75,13 @@ class HomePage extends Component {
             <ProgressBar/>
           )
           :
-          !error? (
-          <div>
-            A partir du : <Search  onInputChange={this.handleInputChange}/>
-          <List data={data} />
-          </div>
-          ) :
-        error.code +' '+ error.message
+          !error ? (
+              <div>
+                A partir du : <Search onInputChange={this.handleInputChange}/>
+                <List data={data}/>
+              </div>
+            ) :
+            error.code + ' ' + error.message
         }
       </div>
     );
